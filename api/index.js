@@ -5,8 +5,14 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import listingRouter from "./routes/listing.route.js";
 import cookieParser from "cookie-parser";
-
+import cors from 'cors'
 dotenv.config();
+
+app.use(cors({
+  origin : 'http://localhost:5173',
+  credentials : true
+})); 
+
 
 const app = express();
 
@@ -28,13 +34,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, ()=>{
-  console.log(`Server is connected to ${PORT} `);
+  console.log(`Server is connected to ${PORT}`);
 })
 
-mongoose.connect("process.env.MONGO")
+mongoose.connect(process.env.MONGO)
   .then(() => {
     console.log("Connected to MongoDB!");
   })
